@@ -16,7 +16,7 @@ export const getUsers = async (
       data: users,
     });
   } catch (error) {
-    const apiError = new ApiError("Something went wrong.");
+    const apiError = new ApiError("Something went wrong.", 500);
     apiError.status = 400;
 
     throw apiError;

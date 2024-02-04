@@ -35,8 +35,7 @@ app.use("/api/user", UserRoutes);
 /* Error Handling */
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const error = new ApiError("Error 404 Not Found");
-  error.status = 404;
+  const error = new ApiError("Error 404 Not Found", 404);
   next(error);
 });
 

@@ -29,9 +29,15 @@ const SERVER = {
   port: SERVER_PORT,
 };
 
+// secrets
+const SECRET = {
+  AUTH_SECRET: process.env.SECRET,
+};
+
 const config = {
   mongo: MONGO,
   server: SERVER,
+  secret: SECRET,
 };
 
 export default config;
