@@ -17,7 +17,7 @@ export const findUserBySessionToken = (sessionToken: string) =>
 
 export const findUserById = (id: string) => UserModel.findById(id);
 
-export const addUser = async (values: Record<string, string>) => {
+export const addUser = async (values: Record<string, any>) => {
   try {
     const newUser = await new UserModel(values).save();
     return newUser.toObject();

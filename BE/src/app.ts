@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from "express";
 import morgan from "morgan";
 
 import UserRoutes from "./routes/user.routes";
+import AuthRoutes from "./routes/auth.routes";
 import ApiError from "./classes/ApiError";
 
 const app = express();
@@ -31,6 +32,8 @@ app.use((req, res, next) => {
 
 /* Routes */
 app.use("/api/user", UserRoutes);
+
+app.use("/auth", AuthRoutes);
 
 /* Error Handling */
 
