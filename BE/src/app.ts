@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import morgan from "morgan";
 
+import UserRoutes from "./routes/user.routes";
 import ApiError from "./classes/ApiError";
 
 const app = express();
@@ -28,14 +29,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req: Request, res: Response) => {
-  const error = new ApiError("Test Error");
-
-  error.status = 469;
-  throw error;
-});
-
 /* Routes */
+app.use("/api/user", UserRoutes);
 
 /* Error Handling */
 

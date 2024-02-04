@@ -4,12 +4,6 @@ dotenv.config();
 
 // mongo db config
 const MONGO_OPTIONS = {
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  socketTimeoutMS: 30000,
-  keepAlive: true,
-  poolSize: 50,
-  autoIndex: false,
   retryWrites: false,
 };
 
