@@ -1,55 +1,13 @@
-import express from "express";
-import http from "http";
-import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import compression from "compression";
-import cors from "cors";
-import dotenv from "dotenv";
 import mongoose from "mongoose";
-import router from "./router";
-dotenv.config();
+import app from "./app";
+import config from "./config";
+import * as logging from "./config/logging";
 
-const app = express();
+const NAMESPACE = "App";
 
-app.use(
-  cors({
-    credentials: true,
-  })
-);
-
-app.use(compression());
-app.use(cookieParser());
-app.use(bodyParser.json());
-
-const server = http.createServer(app);
-
-server.listen(8080, () => {
-  console.log("Server running on http://localhost:8080/");
+mongoose.connect(config.mongo.url, config.mongo.options).then(() => {
+  logging.info(NAMESPACE, "Connected to MongoDB");
+  app.listen(config.server.port, () => {
+    logging.info(NAMESPACE, `Listening to port ${config.server.port}`);
+  });
 });
-
-const MONGO_URL = process.env.MONGO_DB_HOST;
-
-console.log("MONGO_URL: ", MONGO_URL);
-mongoose.Promise = Promise;
-mongoose
-  .connect(MONGO_URL)
-  .then(() => console.log("Successfully Connected to MongoDB Server"));
-mongoose.connection.on("error", (error: Error) => console.log(error));
-
-app.use("/", router);
-app.use(
-  (
-    error: Error,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
-    res.status(500);
-    res.json({
-      message: error.message,
-      error: error,
-    });
-
-    return res;
-  }
-);
