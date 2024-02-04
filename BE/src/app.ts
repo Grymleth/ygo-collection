@@ -1,11 +1,24 @@
 import express, { Request, Response, NextFunction } from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import morgan from "morgan";
 
 import UserRoutes from "./routes/user.routes";
 import AuthRoutes from "./routes/auth.routes";
 import ApiError from "./classes/ApiError";
+import { isAuthenticated } from "./middlewares/authMiddleware";
 
 const app = express();
+
+/* Cors */
+app.use(
+  cors({
+    credentials: true,
+  })
+);
+
+/* cookies */
+app.use(cookieParser());
 
 /* Request Logging */
 app.use(morgan("combined"));
@@ -31,15 +44,16 @@ app.use((req, res, next) => {
 });
 
 /* Routes */
-app.use("/api/user", UserRoutes);
+app.use("/api/user", isAuthenticated, UserRoutes);
 
 app.use("/auth", AuthRoutes);
 
 /* Error Handling */
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const error = new ApiError("Error 404 Not Found", 404);
-  next(error);
+  const apiError = new ApiError("Error 404 Not Found");
+  apiError.status = 404;
+  next(apiError);
 });
 
 app.use((error: ApiError, req: Request, res: Response, next: NextFunction) => {

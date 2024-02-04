@@ -16,9 +16,9 @@ export const getUsers = async (
       data: users,
     });
   } catch (error) {
-    const apiError = new ApiError("Something went wrong.", 500);
+    const apiError = new ApiError("Something went wrong.");
     apiError.status = 400;
 
-    throw apiError;
+    next(apiError);
   }
 };

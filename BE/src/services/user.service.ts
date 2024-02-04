@@ -22,7 +22,10 @@ export const addUser = async (values: Record<string, any>) => {
     const newUser = await new UserModel(values).save();
     return newUser.toObject();
   } catch (error) {
-    throw new ApiError("Error when adding new User", 500);
+    const apiError = new ApiError(error.message);
+    apiError.status = 500;
+
+    throw apiError;
   }
 };
 
