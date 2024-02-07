@@ -27,8 +27,7 @@ export const isAuthenticated = async (
     return next();
   } catch (error) {
     console.log(error);
-    const apiError = new ApiError(error.message);
-    apiError.status = 400;
+    const apiError = new ApiError(error.message, 400);
     next(apiError);
   }
 };

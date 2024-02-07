@@ -51,8 +51,7 @@ app.use("/auth", AuthRoutes);
 /* Error Handling */
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const apiError = new ApiError("Error 404 Not Found");
-  apiError.status = 404;
+  const apiError = new ApiError("Error 404 Not Found", 404);
   next(apiError);
 });
 
