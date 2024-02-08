@@ -1,10 +1,25 @@
 import express, { Request, Response, NextFunction } from "express";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import morgan from "morgan";
 
-import UserRoutes from "./routes/user.routes";
+import router from "./routes";
 import ApiError from "./classes/ApiError";
+import * as logging from "./config/logging";
+
+const NAMESPACE = "App";
 
 const app = express();
+
+/* Cors */
+app.use(
+  cors({
+    credentials: true,
+  })
+);
+
+/* cookies */
+app.use(cookieParser());
 
 /* Request Logging */
 app.use(morgan("combined"));
@@ -30,19 +45,19 @@ app.use((req, res, next) => {
 });
 
 /* Routes */
-app.use("/api/user", UserRoutes);
+app.use("/", router());
 
 /* Error Handling */
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const error = new ApiError("Error 404 Not Found");
-  error.status = 404;
-  next(error);
+  const apiError = new ApiError("Error 404 Not Found", 404);
+  next(apiError);
 });
 
 app.use((error: ApiError, req: Request, res: Response, next: NextFunction) => {
   res.status(error.status || 500);
 
+  logging.info(NAMESPACE, "Something went wrong", error);
   res.json({
     message: error.message,
     error: error,
