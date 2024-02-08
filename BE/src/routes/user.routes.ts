@@ -1,8 +1,9 @@
 import express from "express";
 import * as UserCtrl from "../controllers/user.controller";
+import { isAuthenticated } from "../middlewares/authMiddleware";
 
-const router = express.Router();
+const userRoutes = express.Router();
 
-router.get("/", UserCtrl.getUsers);
+userRoutes.get("/", isAuthenticated, UserCtrl.getUsers);
 
-export default router;
+export default userRoutes;

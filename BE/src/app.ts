@@ -3,10 +3,11 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import morgan from "morgan";
 
-import UserRoutes from "./routes/user.routes";
-import AuthRoutes from "./routes/auth.routes";
+import router from "./routes";
 import ApiError from "./classes/ApiError";
-import { isAuthenticated } from "./middlewares/authMiddleware";
+import * as logging from "./config/logging";
+
+const NAMESPACE = "App";
 
 const app = express();
 
@@ -44,9 +45,7 @@ app.use((req, res, next) => {
 });
 
 /* Routes */
-app.use("/api/user", isAuthenticated, UserRoutes);
-
-app.use("/auth", AuthRoutes);
+app.use("/", router());
 
 /* Error Handling */
 
@@ -58,6 +57,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use((error: ApiError, req: Request, res: Response, next: NextFunction) => {
   res.status(error.status || 500);
 
+  logging.info(NAMESPACE, "Something went wrong", error);
   res.json({
     message: error.message,
     error: error,
