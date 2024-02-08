@@ -11,13 +11,45 @@ export const getUsers = async (
   const limit = req.params.limit ? parseInt(req.params.limit) : 1;
   try {
     const users = await UserSrvc.findUsers({}, page, limit);
-    res.status(200).json({
+    return res.status(200).json({
       status: 200,
       data: users,
     });
   } catch (error) {
-    const apiError = new ApiError("Something went wrong.", 500);
+    next(error);
+  }
+};
 
-    next(apiError);
+export const deleteUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const deletedUser = await UserSrvc.deleteUserById(req);
+
+    return res.status(200).json({
+      status: 200,
+      data: deletedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const updatedUser = await UserSrvc.updateUserById(req);
+
+    return res.status(200).json({
+      status: 200,
+      data: updatedUser,
+    });
+  } catch (error) {
+    next(error);
   }
 };
