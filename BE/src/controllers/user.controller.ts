@@ -36,3 +36,20 @@ export const deleteUser = async (
     next(error);
   }
 };
+
+export const updateUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const updatedUser = await UserSrvc.updateUserById(req);
+
+    return res.status(200).json({
+      status: 200,
+      data: updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

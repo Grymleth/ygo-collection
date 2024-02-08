@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { QueryOptions } from "mongoose";
 import ApiError from "../classes/ApiError";
 import UserModel from "../models/user.model";
@@ -28,8 +29,25 @@ export const addUser = async (values: Record<string, any>) => {
   }
 };
 
-export const deleteUserById = (id: string) =>
-  UserModel.findOneAndDelete({ _id: id });
+export const deleteUserById = (req: Request) => {
+  const { id } = req.params;
+  const deletedUser = UserModel.findOneAndDelete({ _id: id });
 
-export const updateUserById = (id: string, values: Record<string, string>) =>
-  UserModel.findByIdAndUpdate(id, values);
+  return deletedUser;
+};
+
+export const updateUserById = async (req: Request) => {
+  const { id } = req.params;
+  const { username } = req.body;
+
+  if (!username) {
+    throw new ApiError("Missing parameters", 400);
+  }
+
+  const user = await UserModel.findById(id);
+
+  user.username = username;
+  const updatedUser = user.save();
+
+  return updatedUser;
+};
