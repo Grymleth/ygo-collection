@@ -1,5 +1,5 @@
-export interface ICard {
-  cardId: string;
+export interface IYGOProDeckCard {
+  id: string;
   name: string;
   type: string;
   frameType: string;
@@ -11,10 +11,11 @@ export interface ICard {
   attribute?: string;
   archetype?: string;
   ygoprodeck_url: string;
-  qty: number;
-  card_image: {
-    image_url: string;
-    image_url_small: string;
-    image_url_cropped: string;
-  };
+  card_images: [
+    {
+      image_url: string;
+      image_url_small: string;
+      image_url_cropped: string;
+    },
+  ];
 }
