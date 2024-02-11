@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import config from "../config";
-import { IYGOProDeckCard } from "../interfaces";
+import { CardDetails } from "../interfaces";
 
 export const random = () => crypto.randomBytes(128).toString("base64");
 export const hash = (salt: string, password: string) => {
@@ -10,7 +10,7 @@ export const hash = (salt: string, password: string) => {
     .digest("hex");
 };
 
-export const mapYGOProDeckCardToModel = (card: IYGOProDeckCard) => ({
+export const mapCardDetailsToModel = (card: CardDetails) => ({
   cardId: card.id,
   name: card.name,
   type: card.type,

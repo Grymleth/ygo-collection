@@ -2,8 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import { get } from "lodash";
 import CardSrvc from "../services/card.service";
 import ApiError from "../classes/ApiError";
-import { IYGOProDeckCard } from "../interfaces";
-import { mapYGOProDeckCardToModel } from "../helpers/authHelper";
+import { CardDetails } from "../interfaces";
+import { mapCardDetailsToModel } from "../helpers/authHelper";
 
 const getCardsByUserId = async (
   req: Request,
@@ -28,13 +28,13 @@ const getCardsByUserId = async (
 
 const addCard = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const cardParams = req.body as IYGOProDeckCard;
+    const cardParams = req.body as CardDetails;
     const { qty } = req.body;
 
     const currentUserId = get(req, "identity._id") as string;
 
     const newCard = await CardSrvc.addCardByUserId(currentUserId, {
-      ...mapYGOProDeckCardToModel(cardParams),
+      ...mapCardDetailsToModel(cardParams),
       qty,
     });
 
