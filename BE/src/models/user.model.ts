@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { CardSchema } from "./card.model";
 
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
@@ -8,6 +9,7 @@ const UserSchema = new mongoose.Schema({
     salt: { type: String, select: false },
     sessionToken: { type: String, select: false },
   },
+  cards: { type: [CardSchema], select: false },
 });
 
 const UserModel = mongoose.model("User", UserSchema);
