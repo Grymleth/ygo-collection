@@ -1,44 +1,68 @@
-lib-cov
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-*.swp
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
 
-pids
-logs
-results
-tmp
-
-# Build
-public/css/main.css
-
-# Coverage reports
-coverage
-
-# API keys and secrets
+# Environment files
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Dependency directory
-node_modules
-bower_components
+# Build outputs
+dist/
+build/
+.next/
+out/
 
-# Editors
-.idea
-*.iml
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# OS metadata
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# Yarn
+.yarn/
+yarn-error.log
+
+# Verdaccio (local npm registry)
+.verdaccio/
+
+# Docker
+docker-compose.override.yml
+
+# OS files
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# Ignore built ts files
-dist/**/*
-
-# ignore yarn.lock
-yarn.lock
-
-# ignore vs code settings
-.vscode
+# Project specific
+*.tgz
+.eslintcache
