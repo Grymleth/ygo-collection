@@ -1,0 +1,68 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+	color: #e0e0e0;
+	background: #0a0a1a;
+}
+
+body {
+	min-height: 100vh;
+	background: #0a0a1a;
+}
+
+a {
+	color: #8ab4f8;
+}
+
+h1, h2, h3 {
+	color: #f0f0f0;
+	font-weight: 600;
+}
+
+h1 {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+}
+
+h2 {
+	font-size: 1.2rem;
+	margin-bottom: 0.75rem;
+}
+
+button {
+	font-family: inherit;
+}
+
+input, select, textarea {
+	font-family: inherit;
+}
+
+::selection {
+	background: #ffd70033;
+	color: #fff;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #0f0f1a;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #333;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
