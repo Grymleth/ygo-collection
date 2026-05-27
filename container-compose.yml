@@ -1,7 +1,5 @@
-version: "3.8"
-
 services:
-  mongodb:
+  db:
     image: docker.io/library/mongo:7
     container_name: yugioh-mongodb
     restart: unless-stopped
@@ -11,6 +9,16 @@ services:
       MONGO_INITDB_DATABASE: yugioh-collection
     volumes:
       - mongodb_data:/data/db
+
+  backend:
+    build: ./backend/Containerfile
+    depends-on:
+      - mongodb
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://db:27017/yugioh-collection
 
 volumes:
   mongodb_data:
